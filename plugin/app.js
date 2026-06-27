@@ -36,7 +36,7 @@ function getMetrics(data, type) {
 }
 
 function renderForInstance(inst, context) {
-  const { type, lastResult, lastGood } = inst;
+  const { type, lastResult, lastGood, style } = inst;
   const lbl = label(type);
 
   if (!lastResult) {
@@ -48,7 +48,7 @@ function renderForInstance(inst, context) {
     // Show last good data as stale if available
     if (lastGood) {
       const { util, resetEpoch } = getMetrics(lastGood.data, type);
-      setIcon(context, renderUsage({ label: lbl, util, resetEpoch, stale: true }));
+      setIcon(context, renderUsage({ label: lbl, util, resetEpoch, stale: true, style }));
     } else {
       setIcon(context, renderError({ label: lbl, kind: lastResult.kind }));
     }
@@ -56,7 +56,11 @@ function renderForInstance(inst, context) {
   }
 
   const { util, resetEpoch } = getMetrics(lastResult.data, type);
-  setIcon(context, renderUsage({ label: lbl, util, resetEpoch, stale: false }));
+  setIcon(context, renderUsage({ label: lbl, util, resetEpoch, stale: false, style }));
+}
+
+function normalizeStyle(param) {
+  return param && param.style === 'pixel' ? 'pixel' : 'default';
 }
 
 // Shared fetch state: one in-flight fetch for all instances
@@ -104,6 +108,7 @@ $UD.onAdd((data) => {
   instances.set(context, {
     type,
     timer: null,
+    style: normalizeStyle(data.param),
     lastResult: _lastFetchResult,
     lastGood: _lastFetchResult?.ok ? _lastFetchResult : null,
   });
@@ -131,6 +136,17 @@ $UD.onRun((data) => {
   const { context } = data;
   refreshAll(true);
 });
+
+// Settings changed in the Property Inspector (e.g. visual style)
+function applyParam(data) {
+  const { context, param } = data;
+  const inst = instances.get(context);
+  if (!inst) return;
+  inst.style = normalizeStyle(param);
+  renderForInstance(inst, context);
+}
+$UD.onParamFromApp(applyParam);
+$UD.onParamFromPlugin(applyParam);
 
 
 // Initial poll on startup (slight delay to let connections settle)
