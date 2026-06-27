@@ -1,0 +1,45 @@
+{
+  "UUID": "com.claude.usage.plugin",
+  "Name": "Claude Code Usage",
+  "Description": "Monitor your Claude Code subscription usage in real time. Shows the 5-hour rolling limit and the weekly limit directly on your Ulanzi Deck button, with color-coded thresholds and reset countdown.",
+  "Author": "Reis Business Intelligence",
+  "Version": "1.0.0",
+  "Icon": "resources/icon.png",
+  "Category": "Claude Code",
+  "CategoryIcon": "resources/icon.png",
+  "CodePath": "plugin/app.js",
+  "Type": "JavaScript",
+  "PrivateAPI": true,
+  "SupportedInMultiActions": false,
+  "Actions": [
+    {
+      "Name": "5-hour Limit",
+      "Tooltip": "Claude Code 5-hour rolling limit usage.",
+      "Icon": "resources/action-5h.png",
+      "PropertyInspectorPath": "property-inspector/inspector.html",
+      "UUID": "com.claude.usage.plugin.fivehour",
+      "States": [{ "Image": "resources/action-5h.png" }],
+      "SupportedInMultiActions": false,
+      "Controllers": ["Keypad"]
+    },
+    {
+      "Name": "Weekly Limit",
+      "Tooltip": "Claude Code weekly (all models) usage.",
+      "Icon": "resources/action-7d.png",
+      "PropertyInspectorPath": "property-inspector/inspector.html",
+      "UUID": "com.claude.usage.plugin.weekly",
+      "States": [{ "Image": "resources/action-7d.png" }],
+      "SupportedInMultiActions": false,
+      "Controllers": ["Keypad"]
+    }
+  ],
+  "OS": [
+    {
+      "Platform": "windows",
+      "MinimumVersion": "10"
+    }
+  ],
+  "Software": {
+    "MinimumVersion": "6.1"
+  }
+}

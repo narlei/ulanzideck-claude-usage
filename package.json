@@ -1,0 +1,9 @@
+{
+  "name": "com.claude.usage.plugin",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "plugin/app.js",
+  "dependencies": {
+    "ws": "^8.21.0"
+  }
+}
