@@ -1,5 +1,7 @@
 # Claude Code Usage — UlanziDeck Plugin (Windows)
 
+[![Available on Ulanzi Community Store](https://raw.githubusercontent.com/narlei/ulanzicommunitystore/main/docs/badges/ulanzi-community-store.svg)](https://ulanzicommunitystore.narlei.com)
+
 Monitore o uso da sua assinatura do Claude Code em tempo real, direto nos botões
 da sua Ulanzi Stream Deck (D200 / D200H / D200X).
 
